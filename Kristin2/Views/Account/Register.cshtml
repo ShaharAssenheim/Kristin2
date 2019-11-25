@@ -1,0 +1,52 @@
+﻿@model Kristin2.Models.CustomerModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center ">
+    <div class="row">
+
+        <form class="form-signin" action="SubmitRegister" method="POST">
+            <br />
+            <br />
+            <h1 class="h3 mb-3 mt-5 float-right font-weight-normal">נא מלא פרטים</h1>
+
+            <label for="inputUsername" class="sr-only">שם משתמש</label>
+            <input type="text" id="inputUsername" class="form-control" name="UserName" placeholder="שם משתמש" required autofocus>
+            
+            <label for="inputPassword" class="sr-only">סיסמה</label>
+            <input type="password" id="inputPassword" class="form-control" name="Password" placeholder="סיסמה" required>
+
+            <label for="inputFirstname" class="sr-only">שם פרטי</label>
+            <input type="text" id="inputFirstname" class="form-control" name="FirstName" placeholder="שם פרטי" required>
+
+            <label for="inputLastname" class="sr-only">שם משפחה</label>
+            <input id="inputLastname" type="text" class="form-control" name="LastName" placeholder="שם משפחה" required>
+
+            <label for="inputEmail" class="sr-only">אימייל</label>
+            <input id="inputEmail" type="text" class="form-control" name="Email" placeholder="אימייל" required>
+
+            <label for="inputAdmin" class="sr-only">קוד מנהל</label>
+            <input id="inputAdmin" type="text" class="form-control" name="AdminCode" placeholder="קוד מנהל">
+
+            <button class="btn btn-lg btn-secondary btn-block" type="submit">הירשם</button>
+        </form>
+        <div class="form-signin">
+            <a class="text-secondary" href="/forgot">שכחת סיסמה?</a>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+
+            var $nav = $('#mainNavbar');
+            $nav.toggleClass('scrolled');
+        });
+    </script>
+
+}

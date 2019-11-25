@@ -4,36 +4,43 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+   
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
+    <nav class="fixed-top navbar navbar-dark navbar-expand-md py-0" id="mainNavbar">
+
+        <a href="/Home/Index" class="navbar-brand">KRISTINA</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navLinks">
+            <ul class="navbar-nav">
+
+                <li class="nav-item"><a href="/Home/About" class="nav-link">הטיפולים שלנו</a></li>
+                <li class="nav-item"><a href="/Home/Order" class="nav-link">הזמן תור</a></li>
+                <li class="nav-item"><a href="/Customer/CustomersList" class="nav-link">לקוחות</a></li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a href="/Account/Login" class="nav-link ">כניסה</a></li>
+                <li class="nav-item"><a href="/Account/Register" class="nav-link">הרשמה</a></li>
+            </ul>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </nav>
+
+    @RenderBody()
+    <br>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted ">
+                &copy; Place Of Beauty @DateTime.Now.Year | <a class="text-secondary" href="https://www.linkedin.com/in/shahar-assenheim/">Shahar Assenheim Software.</a>
+            </p>
+        </div>
+    </footer>
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

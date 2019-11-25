@@ -1,0 +1,38 @@
+﻿@model Kristin2.Models.CustomerModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row justify-content-center ">
+    <div class="row">
+
+        <form class="form-signin" action="SubmitRegister" method="POST">
+            <br />
+            <br />
+            <h1 class="h3 mb-3 mt-5 float-right font-weight-normal">כניסת משתמש</h1>
+            <label for="inputUsername" class="sr-only ">שם משתמש</label>
+            <input type="text" id="inputUsername" class="form-control" name="username" placeholder="שם משתמש" required autofocus>
+            <label for="inputPassword" class="sr-only">סיסמה</label>
+            <input type="password" id="inputPassword" class="form-control" name="password" placeholder="סיסמה" required>
+
+            <button class="btn btn-lg btn-secondary btn-block" type="submit">כניסה</button>
+        </form>
+        <div class="form-signin">
+            <a class="text-secondary" href="/forgot">שכחת סיסמה?</a>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+
+            var $nav = $('#mainNavbar');
+            $nav.toggleClass('scrolled');
+        });
+    </script>
+
+}

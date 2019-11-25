@@ -23,8 +23,11 @@ namespace Kristin2
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/bootstrap-minty.css",
+                      "~/Content/site.css",
+                      "~/Content/magnific-popup.css",
+                      "~/Content/Gallery.css",
+                      "~/Content/aos.css"));
         }
     }
 }
