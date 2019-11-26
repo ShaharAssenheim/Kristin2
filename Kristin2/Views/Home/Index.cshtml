@@ -14,7 +14,7 @@
 
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 p-0">
             <img class="img-fluid" src="~/Content/imgs/beauty.jpg" alt="Giant Donut in a persons hand">
         </div>
     </div>
@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <img src="~/Content/imgs/face.jpg" class="img-fluid" alt="">
+            <img src="~/Content/imgs/face.jpg" class="img-fluid" alt="" >
         </div>
 
     </div>
@@ -88,12 +88,17 @@
 
 
 @section scripts{
-    <script src="~/Scripts/navScript.js"></script>
+    
     <script src="~/Scripts/aos.js"></script>
     <script>
-        AOS.init({
-            offset: 400,
-            duration: 3000
-        });
+        
+            AOS.init({
+                offset: 400,
+                duration: 3000,
+                easing: 'ease-in',
+                once: true,
+                disable: 'mobile'
+            });
+        
     </script>
 }
