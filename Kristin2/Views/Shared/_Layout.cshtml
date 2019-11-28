@@ -2,15 +2,15 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>@ViewBag.Title - Kristina - Place Of Beaty</title>
    
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <nav class="fixed-top navbar navbar-dark navbar-expand-md py-0" id="mainNavbar">
+    <nav class="fixed-top navbar navbar-dark navbar-expand-md mb-4" id="mainNavbar">
 
         <a href="/Home/Index" class="navbar-brand">KRISTINA</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks" aria-label="Toggle navigation">
@@ -30,8 +30,10 @@
         </div>
     </nav>
 
-    @RenderBody()
-    <br>
+   
+            @RenderBody()
+  
+    
     <footer class="footer">
         <div class="container">
             <p class="text-muted ">

@@ -2,6 +2,7 @@
 html {
 	position: relative;
 	min-height: 100%;
+	overflow-x: hidden;
 }
 
 body {
@@ -12,6 +13,9 @@ body {
 	height: 100%;
 	flex-direction: column;
 	margin-bottom: 60px;
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
 }
 
 .blurb h2 {
@@ -36,6 +40,7 @@ body {
 	font-size: 1.5rem;
 	font-weight: 100;
 	background-color: rgb(222,192,222);
+	/*direction: rtl;*/
 }
 
 	#mainNavbar .nav-link {
@@ -62,12 +67,6 @@ body {
 }
 
 
-
-
-.wrapper {
-	display: flex;
-	justify-content: center;
-}
 
 .footer {
 	position: absolute;
