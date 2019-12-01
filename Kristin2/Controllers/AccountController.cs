@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Kristin2.Dal;
+
 
 namespace Kristin2.Controllers
 {
@@ -24,18 +24,6 @@ namespace Kristin2.Controllers
             return View();
         }
 
-        public ActionResult SubmitRegister(CustomerModel c)
-        {
-            if (!c.AdminCode.Equals(1992))
-                c.AdminCode = 0;
-            c.ID = 1;
 
-
-            CustomerDal dal = new CustomerDal();
-            dal.Customers.Add(c);
-            dal.SaveChanges();
-            return View("Index", c);
-
-        }
     }
 }
