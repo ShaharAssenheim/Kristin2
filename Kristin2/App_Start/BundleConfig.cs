@@ -27,7 +27,8 @@ namespace Kristin2
                       "~/Content/site.css",
                       "~/Content/magnific-popup.css",
                       "~/Content/Gallery.css",
-                      "~/Content/aos.css"));
+                      "~/Content/aos.css",
+                      "~/Content/font-awesome.min.css"));
         }
     }
 }
