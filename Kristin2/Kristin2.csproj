@@ -181,6 +181,8 @@
     <Content Include="Content\imgs\gall\8.jpeg" />
     <Content Include="Content\imgs\gall\9.jpeg" />
     <Content Include="Content\imgs\hand2.png" />
+    <Content Include="Content\imgs\kris_logo.jpg" />
+    <Content Include="Content\imgs\kris_logo_icon.ico" />
     <Content Include="Content\imgs\meni.jpg" />
     <Content Include="Content\imgs\nail.jpg" />
     <Content Include="Content\magnific-popup.css" />

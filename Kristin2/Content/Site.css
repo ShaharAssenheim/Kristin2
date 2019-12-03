@@ -51,12 +51,16 @@ color: #fff;
 
 #mainNavbar .nav-link:hover {
 color: #ea1c2c;
+
 }
 
-#mainNavbar .navbar-brand {
-color: #ea1c2c;
-font-size: 1.5rem;
-font-weight: 100;
+
+
+#mainNavbar .navbar-brand img {
+	height: 2em;
+}
+button:focus {
+	outline: 2px solid #f5d9df;
 }
 
 /*heading*/
