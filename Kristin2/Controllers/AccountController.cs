@@ -24,6 +24,12 @@ namespace Kristin2.Controllers
             return View();
         }
 
+        public ActionResult ForgotPassword()
+        {
+
+            return View();
+        }
+
 
     }
 }

@@ -128,8 +128,11 @@ section {
 #footer {
 	background: #A06F9D !important;
 	color: #ffffff;
-	
+	width: 100%;
+	top: 100%;
+	position: absolute;
 }
+
 
 	#footer h5 {
 
