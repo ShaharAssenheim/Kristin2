@@ -15,7 +15,10 @@ namespace Kristin2.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public DateTime LastTime { get; set; }
+        public string LastTime { get; set; }
         public int AdminCode { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime LastLoginDate { get; set; }
+        public string ResetPasswordCode { get; set; }
     }
 }

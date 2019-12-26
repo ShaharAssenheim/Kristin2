@@ -5,66 +5,98 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CustomersList</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AdminCode)
-        </th>
-        <th></th>
-    </tr>
+<div class="container-fluid h-100 mt-5 text-center">
+    <br />
+    <br />
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Password)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AdminCode)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    <h2 class="mb-3">רשימת לקוחות</h2>
 
-</table>
+    <p>
+        @Html.ActionLink("הוספה", "Register", "Account", null, new { @class = "btn btn-lg btn-secondary" })
+    </p>
+
+    <div class="form-signin">
+        <input type="text" class="form-control" id="txtSearch" placeholder="חפש...">
+    </div>
+    
+
+
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered text-center w-75">
+
+            <tr>
+
+                <th>שם משתמש</th>
+                <th>סיסמה</th>
+                <th>שם פרטי</th>
+                <th>שם משפחה</th>
+                <th>אימייל</th>
+                <th>טיפול אחרון</th>
+                <th>קוד אדמין</th>
+                <th></th>
+            </tr>
+
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdminCode)
+                    </td>
+                    <td>
+                        @Html.ActionLink("ערוך", "Edit", new { id = item.ID }, new { @class = "btn btn-sm btn-secondary" }) |
+                        @Html.ActionLink("מחק", "Delete", new { id = item.ID }, new { @class = "btn btn-sm btn-secondary" })
+                    </td>
+                </tr>
+
+            }
+
+        </table>
+
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        $("#txtSearch").keyup(function () {
+            var value = this.value.toLowerCase().trim();
+
+            $("table tr").each(function (index) {
+                if (!index) return;
+                $(this).find("td").each(function () {
+                    var id = $(this).text().toLowerCase().trim();
+                    var not_found = (id.indexOf(value) == -1);
+                    $(this).closest('tr').toggle(!not_found);
+                    return not_found;
+                });
+            });
+        });
+    </script>
+   }
+
+
+
+
