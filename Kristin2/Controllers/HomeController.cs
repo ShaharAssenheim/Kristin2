@@ -21,9 +21,10 @@ namespace Kristin2.Controllers
             return View();
         }
 
-        public ActionResult Order()
+        public ActionResult NailPolishPicker()
         {
             return View();
         }
     }
 }
+
