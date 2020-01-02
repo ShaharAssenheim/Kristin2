@@ -20,5 +20,7 @@ namespace Kristin2.Models
         public DateTime CreatedDate { get; set; }
         public DateTime LastLoginDate { get; set; }
         public string ResetPasswordCode { get; set; }
+        public string Phone { get; set; }
+        public string Image { get; set; }
     }
 }

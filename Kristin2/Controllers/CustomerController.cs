@@ -7,17 +7,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using System.IO;
+using System.Net;
 
 namespace Kristin2.Controllers
 {
     public class CustomerController : Controller
     {
         MyContext db = new MyContext();
+
         // GET: Customer
         public ActionResult CustomersList()
         {
 
             return View(db.Customers.ToList());
+
+        }
+
+        public ActionResult CustomersPage()
+        {
+            int id = Convert.ToInt32(Session["UserID"]);
+            CustomerModel customer = db.Customers.SingleOrDefault(c => c.ID == id);
+            if (customer == null)
+                return HttpNotFound();
+            return View(customer);
 
         }
 
@@ -37,6 +52,7 @@ namespace Kristin2.Controllers
         [HttpPost]
         public ActionResult Create(CustomerModel customer)
         {
+            customer.Image = customer.Image ?? "http://ssl.gstatic.com/accounts/ui/avatar_2x.png";
             customer.CreatedDate = DateTime.Now;
             customer.LastLoginDate = DateTime.Now;
             if (customer.AdminCode != 222)
@@ -44,21 +60,85 @@ namespace Kristin2.Controllers
 
             db.Customers.Add(customer);
             db.SaveChanges();
-            return RedirectToAction("CustomersList", "Customer");
+            Session["UserID"] = customer.ID.ToString();
+            Session["FirstName"] = customer.FirstName.ToString();
+            return RedirectToAction("CustomersPage", customer);
         }
 
         [HttpPost]
-        public ActionResult Find(string searchString)
+        public ActionResult Edit(CustomerModel customer)
         {
-            var c = from m in db.Customers
-                    select m;
-
-            if (!String.IsNullOrEmpty(searchString))
+            if (ModelState.IsValid)
             {
-                c = c.Where(s => s.FirstName.Contains(searchString));
+
+                CustomerModel user = db.Customers.FirstOrDefault(u => u.ID.Equals(customer.ID));
+
+                // Update fields
+                user.UserName = customer.UserName ?? user.UserName;
+                user.FirstName = customer.FirstName ?? user.FirstName;
+                user.LastName = customer.LastName ?? user.LastName;
+                user.Password = customer.Password ?? user.Password;
+                user.Email = customer.Email ?? user.Email;
+                user.Phone = customer.Phone ?? user.Phone;
+                user.Image = customer.Image ?? user.Image;
+
+                db.SaveChanges();
+
+                return RedirectToAction("CustomersPage", customer);
             }
 
-            return View(c.ToList());
+            return View(customer);
+        }
+
+
+        [HttpPost]
+        public ActionResult UploadImage()
+        {
+            //save file in App_Data
+            var res = "";
+            var file = Request.Files[0];
+            var fileName = Path.GetFileName(file.FileName);
+            var path = Path.Combine(Server.MapPath("~/App_Data/"), fileName);
+            file.SaveAs(path);
+
+            //connect to cloudinary account
+            var myAccount = new Account { ApiKey = "555682285552641", ApiSecret = "Id-vLH2JZBKc7x0wK3ZEZYCsGkA", Cloud = "dmrx96yqx" };
+            Cloudinary _cloudinary = new Cloudinary(myAccount);
+
+            int id = Convert.ToInt32(Session["UserID"]);
+            if (id != 0)//if th user is connected, update image
+            {
+                CustomerModel user = db.Customers.FirstOrDefault(u => u.ID.Equals(id));
+                int pos = user.Image.LastIndexOf('/') + 1;
+                string delImg = user.Image.Substring(pos, user.Image.Length - pos - 4);
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(path),
+                    Folder = "placeOfBueaty",
+                    PublicId = delImg,
+
+                };
+                var uploadResult = _cloudinary.Upload(uploadParams);
+                res = uploadResult.SecureUri.ToString();
+                user.Image = res;
+                db.SaveChanges();
+            }
+            else//if the user is register, upload new image
+            {
+                var uploadParams = new ImageUploadParams()
+                {
+                    File = new FileDescription(path),
+                    Folder = "placeOfBueaty",
+                };
+                var uploadResult = _cloudinary.Upload(uploadParams);
+                res = uploadResult.SecureUri.ToString();
+            }
+            //delete the image from App_Data
+            FileInfo del = new FileInfo(path);
+            del.Delete();
+            //send back url.
+            Response.StatusCode = (int)HttpStatusCode.OK;
+            return Json(new { success = true, responseText = res }, JsonRequestBehavior.AllowGet);
         }
 
 

@@ -185,9 +185,15 @@ section {
 		transition: .5s all ease;
 	}
 
+	#footer ul.time-list li {
+		margin-top: 15px;
+		-webkit-transition: .5s all ease;
+		-moz-transition: .5s all ease;
+		transition: .5s all ease;
+	}
+
 		#footer ul.quick-links li:hover {
-			padding: 3px 0;
-			margin-left: 5px;
+			padding: 3px 0;		
 			font-weight: 700;
 		}
 
@@ -229,4 +235,17 @@ section {
 		display: inline-block;
 		float: none !important;
 	}
+}
+
+#imageInput {
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+}
+
+
+#imageBtn {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
 }

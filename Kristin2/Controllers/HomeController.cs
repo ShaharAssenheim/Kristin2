@@ -16,7 +16,7 @@ namespace Kristin2.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Gallery()
         {
             return View();
         }

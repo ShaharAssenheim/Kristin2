@@ -48,7 +48,7 @@ namespace Kristin2.Controllers
                     {
                         Session["UserID"] = obj.ID.ToString();
                         Session["FirstName"] = obj.FirstName.ToString();
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("CustomersPage", "Customer");
                     }
                 }
             }
@@ -118,9 +118,11 @@ namespace Kristin2.Controllers
                 mm.Body = body;
 
                 mm.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    EnableSsl = true
+                };
                 NetworkCredential NetworkCred = new NetworkCredential("shacharassen3667@gmail.com", "$lichi2017");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = NetworkCred;
@@ -148,8 +150,10 @@ namespace Kristin2.Controllers
                 var user = context.Customers.Where(a => a.ResetPasswordCode == id).FirstOrDefault();
                 if (user != null)
                 {
-                    ResetPasswordModel model = new ResetPasswordModel();
-                    model.ResetCode = id;
+                    ResetPasswordModel model = new ResetPasswordModel
+                    {
+                        ResetCode = id
+                    };
                     return View(model);
                 }
                 else

@@ -1,0 +1,13 @@
+﻿
+
+@media (max-width:767px) {
+	#ProfileName {
+		text-align:center;
+	}
+}
+
+@media (min-width:767px) {
+	#ProfileName {
+		float: right;
+	}
+}
