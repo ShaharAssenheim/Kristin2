@@ -19,41 +19,42 @@
         {
             <a href="/Customer/CustomersPage" class="nav-link d-md-none d-block" id="nameMobile">שלום @Session["FirstName"]</a>
         }
-            <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navLinks">
-                <ul class="navbar-nav p-0">
-                    <li class="nav-item"><a href="/Calander/Calander" class="nav-link">הזמן תור</a></li>
-                    <li class="nav-item"><a href="/Customer/CustomersList" class="nav-link">לקוחות</a></li>
-                    <li class="nav-item"><a href="/Home/Gallery" class="nav-link">גלריה</a></li>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navLinks" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navLinks">
+            <ul class="navbar-nav p-0">
+                <li class="nav-item"><a href="/Calander/Calander" class="nav-link">הזמן תור</a></li>
+                <li class="nav-item"><a href="/Customer/CustomersList" class="nav-link">לקוחות</a></li>
+                <li class="nav-item"><a href="/Home/Gallery" class="nav-link">גלריה</a></li>
+            </ul>
+            @if (Session["FirstName"] != null)
+            {
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item d-none d-md-block" id="nameBig"><a href="/Customer/CustomersPage" class="nav-link ">שלום @Session["FirstName"]</a></li>
+                    <li class="nav-item"><a href="/Account/Logout" class="nav-link">התנתק</a></li>
                 </ul>
-                @if (Session["FirstName"] != null)
-                {
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item d-none d-md-block" id="nameBig"><a href="/Customer/CustomersPage" class="nav-link ">שלום @Session["FirstName"]</a></li>
-                        <li class="nav-item"><a href="/Account/Logout" class="nav-link">התנתק</a></li>
-                    </ul>
 
-                }
-                else
-                {
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a href="/Account/Login" class="nav-link ">כניסה</a></li>
-                        <li class="nav-item"><a href="/Account/Register" class="nav-link">הרשמה</a></li>
-                    </ul>
-                }
-            </div>
-        </nav>
+            }
+            else
+            {
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a href="/Account/Login" class="nav-link ">כניסה</a></li>
+                    <li class="nav-item"><a href="/Account/Register" class="nav-link">הרשמה</a></li>
+                </ul>
+            }
+        </div>
+    </nav>
+
 
 
     @RenderBody()
-
+ 
 
     <section id="footer">
         <div class="container-fluid">
             <div class="row text-center">
-                <div class="col-xs-12 col-sm-4 col-md-4" >
+                <div class="col-xs-12 col-sm-4 col-md-4">
                     <h5 class="mt-5">שעות פתיחה</h5>
                     <ul class="list-unstyled time-list pl-5">
                         <li>ראשון: 20:00 - 09:00</li>
@@ -130,6 +131,7 @@
                 easing: 'ease-in',
                 once: true,
             });
+
 
         </script>
     }

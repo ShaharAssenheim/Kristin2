@@ -26,9 +26,10 @@ namespace Kristin2.Controllers
 
         }
 
-        public ActionResult CustomersPage()
+        public ActionResult CustomersPage(int? id)
         {
-            int id = Convert.ToInt32(Session["UserID"]);
+            int SessionId = Convert.ToInt32(Session["UserID"]);
+            id = SessionId == id || id == null ? SessionId : id;
             CustomerModel customer = db.Customers.SingleOrDefault(c => c.ID == id);
             if (customer == null)
                 return HttpNotFound();
@@ -43,6 +44,11 @@ namespace Kristin2.Controllers
             CustomerModel customer = db.Customers.SingleOrDefault(c => c.ID == id);
             if (customer == null)
                 return HttpNotFound();
+            var myAccount = new Account { ApiKey = "555682285552641", ApiSecret = "Id-vLH2JZBKc7x0wK3ZEZYCsGkA", Cloud = "dmrx96yqx" };
+            Cloudinary _cloudinary = new Cloudinary(myAccount);
+            int pos = customer.Image.LastIndexOf("placeOfBueaty");
+            string delImg = customer.Image.Substring(pos, customer.Image.Length - pos - 4);
+            _cloudinary.DeleteResources(delImg);
             db.Customers.Remove(customer);
             db.SaveChanges();
             return RedirectToAction("CustomersList", "Customer");
@@ -62,7 +68,7 @@ namespace Kristin2.Controllers
             db.SaveChanges();
             Session["UserID"] = customer.ID.ToString();
             Session["FirstName"] = customer.FirstName.ToString();
-            return RedirectToAction("CustomersPage", customer);
+            return RedirectToAction("CustomersPage");
         }
 
         [HttpPost]
@@ -98,7 +104,8 @@ namespace Kristin2.Controllers
             var res = "";
             var file = Request.Files[0];
             var fileName = Path.GetFileName(file.FileName);
-            var path = Path.Combine(Server.MapPath("~/App_Data/"), fileName);
+            //var path = Path.Combine(Server.MapPath("~/App_Data/"), fileName);
+            var path = Path.Combine(Server.MapPath("~/Content/imgs/"), fileName);
             file.SaveAs(path);
 
             //connect to cloudinary account
@@ -106,7 +113,7 @@ namespace Kristin2.Controllers
             Cloudinary _cloudinary = new Cloudinary(myAccount);
 
             int id = Convert.ToInt32(Session["UserID"]);
-            if (id != 0)//if th user is connected, update image
+            if (id != 0)//if the user is connected, update image
             {
                 CustomerModel user = db.Customers.FirstOrDefault(u => u.ID.Equals(id));
                 int pos = user.Image.LastIndexOf('/') + 1;

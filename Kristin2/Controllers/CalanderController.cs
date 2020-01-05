@@ -54,7 +54,7 @@ namespace Kristin2.Controllers
                         v.Subject = e.Subject;
                         v.StartTime = e.StartTime;
                         v.EndTime = e.EndTime;
-                        v.Description = e.Description;
+                        v.Description = e.Description ?? "אין";
                         v.IsFullDay = e.IsFullDay;
                         v.ThemeColor = e.ThemeColor;
                     }

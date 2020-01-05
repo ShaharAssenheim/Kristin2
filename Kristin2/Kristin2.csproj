@@ -199,6 +199,7 @@
     <Content Include="Content\imgs\hand2.png" />
     <Content Include="Content\imgs\kris_logo.jpg" />
     <Content Include="Content\imgs\kris_logo_icon.ico" />
+    <Content Include="Content\imgs\loader.gif" />
     <Content Include="Content\imgs\meni.jpg" />
     <Content Include="Content\imgs\nail.jpg" />
     <Content Include="Content\magnific-popup.css" />
