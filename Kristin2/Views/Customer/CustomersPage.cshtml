@@ -1,4 +1,5 @@
-﻿@model Kristin2.Models.CustomerModel
+﻿@using Kristin2.Models;
+@model  Tuple<CustomerModel, List<CalanderModel>>
 
 @{
     ViewBag.Title = "CustomersPage";
@@ -9,7 +10,7 @@
 
 <div class="container bootstrap snippet mt-5">
     <div class="row mt-5">
-        <div class="col-sm-10"><h1 id="ProfileName">@Model.FirstName @Model.LastName</h1></div>
+        <div class="col-sm-10"><h1 id="ProfileName">@Model.Item1.FirstName @Model.Item1.LastName</h1></div>
 
     </div>
     <div class="row">
@@ -17,7 +18,7 @@
             <!--left col-->
 
             <div class="text-center">
-                <img src="@Model.Image" class="avatar img-circle img-thumbnail mb-2" alt="avatar">
+                <img src="@Model.Item1.Image" class="avatar img-circle img-thumbnail mb-2" alt="avatar">
 
                 <!-- COMPONENT START -->
                 <div class="form-group">
@@ -48,29 +49,29 @@
                         <div class="form-group" style="display:none">
                             <div class="col-xs-6">
                                 <label for="ID" class="float-right"><h4>מספר משתמש</h4></label>
-                                <input type="text" class="form-control" name="ID" id="ID"  value="@Model.ID" >
-                               
+                                <input type="text" class="form-control" name="ID" id="ID" value="@Model.Item1.ID">
+
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label for="UserName" class="float-right"><h4>שם משתמש</h4></label>
-                                <input type="text" class="form-control" name="UserName" id="UserName" placeholder="@Model.UserName" readonly>
+                                <input type="text" class="form-control" name="UserName" id="UserName" placeholder="@Model.Item1.UserName" readonly>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label for="FirstName" class="float-right"><h4>שם פרטי</h4></label>
-                                <input type="text" class="form-control" name="FirstName" id="FirstName" placeholder="@Model.FirstName" readonly>
+                                <input type="text" class="form-control" name="FirstName" id="FirstName" placeholder="@Model.Item1.FirstName" readonly>
                             </div>
                         </div>
                         <div class="form-group">
 
                             <div class="col-xs-6">
                                 <label for="LastName" class="float-right"><h4>שם משפחה</h4></label>
-                                <input type="text" class="form-control" name="LastName" id="LastName" placeholder="@Model.LastName" readonly>
+                                <input type="text" class="form-control" name="LastName" id="LastName" placeholder="@Model.Item1.LastName" readonly>
                             </div>
                         </div>
 
@@ -78,7 +79,7 @@
 
                             <div class="col-xs-6">
                                 <label for="Phone" class="float-right"><h4>טלפון</h4></label>
-                                <input type="text" class="form-control" name="Phone" id="Phone" placeholder="@Model.Phone" readonly>
+                                <input type="text" class="form-control" name="Phone" id="Phone" placeholder="@Model.Item1.Phone" readonly>
                             </div>
                         </div>
 
@@ -86,14 +87,14 @@
 
                             <div class="col-xs-6">
                                 <label for="Email" class="float-right"><h4>אימייל</h4></label>
-                                <input type="email" class="form-control" name="Email" id="Email" placeholder="@Model.Email" readonly>
+                                <input type="email" class="form-control" name="Email" id="Email" placeholder="@Model.Item1.Email" readonly>
                             </div>
                         </div>
                         <div class="form-group">
 
                             <div class="col-xs-6">
                                 <label for="Password" class="float-right"><h4>סיסמה</h4></label>
-                                <input type="password" class="form-control" name="Password" id="Password" placeholder="@Model.Password" readonly>
+                                <input type="password" class="form-control" name="Password" id="Password" placeholder="@Model.Item1.Password" readonly>
                             </div>
                         </div>
 
@@ -112,75 +113,45 @@
                 </div><!--/tab-pane-->
                 <div class="tab-pane" id="messages">
 
-                    <h2></h2>
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center w-75">
 
-                    <hr>
-                    <form class="form" action="##" method="post" id="registrationForm">
-                        <div class="form-group">
+                            <tr>
+                                <th>טיפול</th>
+                                <th>תאריך</th>
+                                <th>תשלום</th>
+                            </tr>
 
-                            <div class="col-xs-6">
-                                <label for="first_name"><h4>First name</h4></label>
-                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
-                            </div>
-                        </div>
-                        <div class="form-group">
+                          
+                          
+                            @for (int i = 0; i < Model.Item2.Count() - 1; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.Item2[i].Subject)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.Item2[i].StartTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.Item2[i].Price)
+                                    </td>
+                                </tr>
+                            }
+                                <tr>
+                                    <td>
+                                      
+                                    </td>
+                                    <td>
+                                        סה"כ
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => Model.Item2[Model.Item2.Count() - 1].Price)
+                                    </td>
+                                </tr>
+                        </table>
 
-                            <div class="col-xs-6">
-                                <label for="last_name"><h4>Last name</h4></label>
-                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="phone"><h4>Phone</h4></label>
-                                <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-6">
-                                <label for="mobile"><h4>Mobile</h4></label>
-                                <input type="text" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="email"><h4>Email</h4></label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email.">
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="email"><h4>Location</h4></label>
-                                <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="password"><h4>Password</h4></label>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="col-xs-6">
-                                <label for="password2"><h4>Verify</h4></label>
-                                <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <br>
-                                <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                                <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
 
                 </div><!--/tab-pane-->
             </div><!--/tab-pane-->
@@ -190,12 +161,12 @@
 
 
 @section scripts{
-    <script>     
+    <script>
         $(document).ready(function () {
             $('#edit').click(function () {
                 $("input").removeAttr("readonly");
                 $("input").css('background-color', '#faf3e1');
-                
+
             });
         });
 

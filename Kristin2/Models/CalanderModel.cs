@@ -17,7 +17,9 @@ namespace Kristin2.Models
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string ThemeColor { get; set; }
-        public int IsFullDay { get; set; }
+        public string Customer { get; set; }
+        public int Price { get; set; }
+
 
     }
 }

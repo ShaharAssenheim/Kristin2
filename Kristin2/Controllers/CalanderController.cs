@@ -16,8 +16,6 @@ namespace Kristin2.Controllers
         public ActionResult Calander()
         {
 
-
-
             var tuple = new Tuple<List<CustomerModel>, List<ProductModel>>(db.Customers.ToList(), Products.ProductDb.ToList());
             return View(tuple);
         }
@@ -27,14 +25,14 @@ namespace Kristin2.Controllers
             using (MyContext dc = new MyContext())
             {
                 var events = dc.Eventsdb.ToList();
-                foreach (var e in events)
-                {
-                    string st = e.StartTime.ToString("dd MMM yyyy hh:mm");
-                    e.StartTime = Convert.ToDateTime(st);
-                    string et = e.EndTime.ToString("dd MMM yyyy hh:mm");
-                    e.EndTime = Convert.ToDateTime(et);
+                //foreach (var e in events)
+                //{
 
-                }
+                //    e.StartTime = e.StartTime.AddHours(-10);
+
+                //    e.EndTime = e.EndTime.AddHours(-10);
+
+                //}
                 return new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             }
         }
@@ -54,13 +52,16 @@ namespace Kristin2.Controllers
                         v.Subject = e.Subject;
                         v.StartTime = e.StartTime;
                         v.EndTime = e.EndTime;
-                        v.Description = e.Description ?? "אין";
-                        v.IsFullDay = e.IsFullDay;
+                        v.Description = e.Description;
                         v.ThemeColor = e.ThemeColor;
+                        v.Customer = e.Customer;
                     }
                 }
                 else
                 {
+                    if (e.Description == null)
+                        e.Description = "אין";
+
                     dc.Eventsdb.Add(e);
                 }
                 dc.SaveChanges();

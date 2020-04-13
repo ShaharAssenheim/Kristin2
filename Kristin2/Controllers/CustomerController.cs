@@ -16,6 +16,7 @@ namespace Kristin2.Controllers
 {
     public class CustomerController : Controller
     {
+        MyContext Events = new MyContext();
         MyContext db = new MyContext();
 
         // GET: Customer
@@ -33,8 +34,12 @@ namespace Kristin2.Controllers
             CustomerModel customer = db.Customers.SingleOrDefault(c => c.ID == id);
             if (customer == null)
                 return HttpNotFound();
-            return View(customer);
-
+            List<CalanderModel> EventList = Events.Eventsdb.Where(x => x.Customer == customer.FirstName + " " + customer.LastName).ToList();
+            CalanderModel cal = new CalanderModel();
+            cal.Price = EventList.Sum(x => x.Price);
+            EventList.Add(cal);
+            var tuple = new Tuple<CustomerModel, List<CalanderModel>>(customer, EventList);
+            return View(tuple);
         }
 
 
@@ -147,9 +152,5 @@ namespace Kristin2.Controllers
             Response.StatusCode = (int)HttpStatusCode.OK;
             return Json(new { success = true, responseText = res }, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
     }
 }
