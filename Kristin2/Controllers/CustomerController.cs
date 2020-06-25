@@ -22,7 +22,6 @@ namespace Kristin2.Controllers
         // GET: Customer
         public ActionResult CustomersList()
         {
-
             return View(db.Customers.ToList());
 
         }
@@ -35,8 +34,11 @@ namespace Kristin2.Controllers
             if (customer == null)
                 return HttpNotFound();
             List<CalanderModel> EventList = Events.Eventsdb.Where(x => x.Customer == customer.FirstName + " " + customer.LastName).ToList();
-            CalanderModel cal = new CalanderModel();
-            cal.Price = EventList.Sum(x => x.Price);
+
+            CalanderModel cal = new CalanderModel
+            {
+                Price = EventList.Sum(x => x.Price)
+            };
             EventList.Add(cal);
             var tuple = new Tuple<CustomerModel, List<CalanderModel>>(customer, EventList);
             return View(tuple);
@@ -49,11 +51,15 @@ namespace Kristin2.Controllers
             CustomerModel customer = db.Customers.SingleOrDefault(c => c.ID == id);
             if (customer == null)
                 return HttpNotFound();
-            var myAccount = new Account { ApiKey = "555682285552641", ApiSecret = "Id-vLH2JZBKc7x0wK3ZEZYCsGkA", Cloud = "dmrx96yqx" };
-            Cloudinary _cloudinary = new Cloudinary(myAccount);
-            int pos = customer.Image.LastIndexOf("placeOfBueaty");
-            string delImg = customer.Image.Substring(pos, customer.Image.Length - pos - 4);
-            _cloudinary.DeleteResources(delImg);
+            if (!(customer.Image == "http://ssl.gstatic.com/accounts/ui/avatar_2x.png"))
+            {
+                var myAccount = new Account { ApiKey = "555682285552641", ApiSecret = "Id-vLH2JZBKc7x0wK3ZEZYCsGkA", Cloud = "dmrx96yqx" };
+                Cloudinary _cloudinary = new Cloudinary(myAccount);
+                int pos = customer.Image.LastIndexOf("placeOfBueaty/Users/");
+                string delImg = customer.Image.Substring(pos, customer.Image.Length - pos - 4);
+                _cloudinary.DeleteResources(delImg);
+            }
+
             db.Customers.Remove(customer);
             db.SaveChanges();
             return RedirectToAction("CustomersList", "Customer");
@@ -109,7 +115,6 @@ namespace Kristin2.Controllers
             var res = "";
             var file = Request.Files[0];
             var fileName = Path.GetFileName(file.FileName);
-            //var path = Path.Combine(Server.MapPath("~/App_Data/"), fileName);
             var path = Path.Combine(Server.MapPath("~/Content/imgs/"), fileName);
             file.SaveAs(path);
 
@@ -126,7 +131,7 @@ namespace Kristin2.Controllers
                 var uploadParams = new ImageUploadParams()
                 {
                     File = new FileDescription(path),
-                    Folder = "placeOfBueaty",
+                    Folder = "placeOfBueaty/Users",
                     PublicId = delImg,
 
                 };
@@ -140,7 +145,7 @@ namespace Kristin2.Controllers
                 var uploadParams = new ImageUploadParams()
                 {
                     File = new FileDescription(path),
-                    Folder = "placeOfBueaty",
+                    Folder = "placeOfBueaty/Users",
                 };
                 var uploadResult = _cloudinary.Upload(uploadParams);
                 res = uploadResult.SecureUri.ToString();

@@ -47,25 +47,27 @@
                     <div class="form-group">
                         <label class="float-right">טיפול</label>
                         <select id="txtSubject" class="form-control">
+
                             @foreach (var item in Model.Item2)
                             {
                                 <option>
                                     @Html.DisplayFor(modelItem => item.Product_name)
                                 </option>
                             }
-                        </select>
+                        </select><span id="Subject-msg" ></span>
                     </div>
                     <div class="form-group">
                         <label class="float-right">לקוח/ה</label>
 
                         <select id="txtCustomer" class="form-control">
+                      
                             @foreach (var item in Model.Item1)
                             {
                                 <option>
                                     @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
                                 </option>
                             }
-                        </select>
+                        </select><span id="customer-msg"></span>
                     </div>
                     <div class="form-group">
                         <label class="float-right">תאריך</label>
@@ -73,7 +75,7 @@
                     </div>
                     <div class="form-group">
                         <label class="float-right">התחלה</label>
-                        <input type="text" id="txtStart" class="date-picker time-picker form-control" />
+                        <input type="text" id="txtStart" class="date-picker time-picker form-control" /><span id="start-msg"></span>
                     </div>
                    
                     <div class="form-group" id="divEndDate" >
@@ -169,12 +171,12 @@
                     slotEventOverlap: false,
                     eventClick: function (calEvent, jsEvent, view) {
                         selectedEvent = calEvent;
-                        $('#myModal #eventTitle').text(calEvent.title);
+                        $('#myModal #eventTitle').text(calEvent.title +" - "+ calEvent.start.format("DD/MM/YYYY"));
                         var $description = $('<div/>');
                         $description.append($('<p/>').html('<b>לקוח/ה: </b>' + calEvent.customer));
-                        $description.append($('<p/>').html('<b>התחלה: </b>' + calEvent.start.format("DD-MM-YYYY HH:mm")));
+                        $description.append($('<p/>').html('<b>התחלה: </b>' + calEvent.start.format("HH:mm")));
                         if (calEvent.end != null) {
-                            $description.append($('<p/>').html('<b>סיום: </b>' + calEvent.end.format("DD-MM-YYYY HH:mm")));
+                            $description.append($('<p/>').html('<b>סיום: </b>' + calEvent.end.format("HH:mm")));
                         }
                         $description.append($('<p/>').html('<b>תאור: </b>' + calEvent.description));
                         $('#myModal #pDetails').empty().html($description);
@@ -215,7 +217,7 @@
             })
             //Delete event from the calander
             $('#btnDelete').click(function () {
-                if (selectedEvent != null && confirm('Are you sure?')) {
+                if (selectedEvent != null) {
                     $.ajax({
                         type: "POST",
                         url: '/Calander/DeleteEvent',
@@ -235,7 +237,7 @@
             })
             //pick the time for new event
             $('#txtStart').timepicker({
-                timeFormat: 'HH:mm:ss',
+                timeFormat: 'HH:mm',
                 dateFormat: 'd-mm-yy',
                 hourText: "שעה",
                 minuteText: "דקה",
@@ -278,9 +280,7 @@
                 }
             });
 
-            $('#txtStart').change(function () {
-                $('#txtEnd').val(moment($('#txtStart').val(), 'HH:mm:ss').add(dauration, 'minutes').format('HH:mm:ss'));
-            });
+           
             
             //initilize the Add/edit form
             function openAddEditForm() {
@@ -292,37 +292,66 @@
                     $('#txtEnd').val(selectedEvent.end.format('HH:mm'));
                     $('#txtDescription').val(selectedEvent.description);
                     $('#txtCustomer').val(selectedEvent.customer);
+
+                    if (document.getElementById('Subject-msg').hasChildNodes()) {
+                        document.getElementById('Subject-msg').lastChild.remove()
+                    }
+                    if (document.getElementById('customer-msg').hasChildNodes()) {
+                        document.getElementById('customer-msg').lastChild.remove()
+                    }
+                    if (document.getElementById('start-msg').hasChildNodes()) {
+                        document.getElementById('start-msg').lastChild.remove()
+                    }
                 }
                 $('#myModal').modal('hide');
                 $('#myModalSave').modal();
             }
             //vallidation for the event when save button pressed
             $('#btnSave').click(function () {
-                //Validation/
-                if ($('#txtSubject').val().trim() == "") {
-                   alert('נא לבחור סוג טיפול');
-                    return;
-                }
-                if ($('#txtCustomer').val().trim() == "") {
-                    alert('נא לבחור לקוח');
-                    return;
-                }
-                if ($('#txtStart').val().trim() == "00:00") {
-                    alert('נא לבחור שעת התחלה');
-                    return;
-                }
-                if ($('#txtEnd').val().trim() == "") {
-                    alert('נא לבחור שעת סיום');
-                    return;
-                }
-                else {
-                    var startDate = moment($('#txtDate').val() + " " + $('#txtStart').val(), "DD/MM/YYYY HH:mm").toDate();
-                    var endDate = moment($('#txtDate').val() + " " + $('#txtEnd').val(), "DD/MM/YYYY HH:mm").toDate();
-                    if (startDate >= endDate) {
-                        alert('הזמן הנבחר לא חוקי');
-                        return;
+                var msg="";
+
+                if ($('#txtSubject').val() == null) {
+                    if (!document.getElementById('Subject-msg').hasChildNodes()) {
+                        msg = document.createTextNode("נא לבחור סוג טיפול");
+                        document.getElementById('Subject-msg').appendChild(msg);
                     }
                 }
+                else if ($('#textSubject').val() == undefined) {
+                    if (document.getElementById('Subject-msg').hasChildNodes()) {
+                        document.getElementById('Subject-msg').lastChild.remove();
+                    }
+                }
+
+                if ($('#txtCustomer').val() == null) {
+                    if (!document.getElementById('customer-msg').hasChildNodes()) {
+                        msg = document.createTextNode("נא לבחור לקוח/ה");
+                        document.getElementById('customer-msg').appendChild(msg);
+                    }
+                }
+                else if (document.getElementById('customer-msg').hasChildNodes()) {
+                        document.getElementById('customer-msg').lastChild.remove();
+                }
+
+                if ($('#txtStart').val() == "00:00") {
+                    if (!document.getElementById('start-msg').hasChildNodes()) {
+                        msg = document.createTextNode("נא לבחור שעת התחלה");
+                        document.getElementById('start-msg').appendChild(msg);
+                    }
+                    return;
+                }
+                else if (document.getElementById('start-msg').hasChildNodes()) {
+                    document.getElementById('start-msg').lastChild.remove();
+                }
+
+                var startDate = moment($('#txtDate').val() + " " + $('#txtStart').val(), "DD/MM/YYYY HH:mm").toDate();
+                var endDate = moment($('#txtDate').val() + " " + $('#txtEnd').val(), "DD/MM/YYYY HH:mm").toDate();
+                if (startDate >= endDate) {
+                    alert('הזמן הנבחר לא חוקי');
+                    return;
+                }
+              
+                    
+                
                 $('#txtDate').val(selectedEvent.start.format('YYYY-MM-DD'));
 
                 var data = {
@@ -337,6 +366,11 @@
                 }
                 SaveEvent(data);// call function for submit data to the server
             })
+
+            $('#txtStart').change(function () {
+                $('#txtEnd').val(moment($('#txtStart').val(), 'HH:mm').add(dauration, 'minutes').format('HH:mm'));
+            });
+
             //submit data to the server
             function SaveEvent(data) {
 

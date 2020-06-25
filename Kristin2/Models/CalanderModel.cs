@@ -20,6 +20,5 @@ namespace Kristin2.Models
         public string Customer { get; set; }
         public int Price { get; set; }
 
-
     }
 }

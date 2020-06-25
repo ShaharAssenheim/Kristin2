@@ -27,7 +27,16 @@
                 <li class="nav-item"><a href="/Calander/Calander" class="nav-link">הזמן תור</a></li>
                 <li class="nav-item"><a href="/Customer/CustomersList" class="nav-link">לקוחות</a></li>
                 <li class="nav-item"><a href="/Home/Gallery" class="nav-link">גלריה</a></li>
-                <li class="nav-item"><a href="/Home/NailPolishPicker" class="nav-link">בחרי לק</a></li>
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <a class="nav-link">בחרי לק</a>
+                        <div class="dropdown-content">
+                            <a href="/Home/Colors" class="nav-link">צבעים</a>
+                            <a href="/Home/NailPolishPicker" class="nav-link">הדמיה</a>
+                        </div>
+                    </div>
+                </li>
+
             </ul>
             @if (Session["FirstName"] != null)
             {
@@ -132,7 +141,6 @@
                 easing: 'ease-in',
                 once: true,
             });
-
 
         </script>
     }

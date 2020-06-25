@@ -1,0 +1,84 @@
+﻿@model IEnumerable<string>
+@{
+    ViewBag.Title = "Colors";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div id="gallery-section">
+    <div class="inner-width">
+        <h1>הצבעים שלי</h1>
+        <div class="border "></div>
+
+        @using (Html.BeginForm("UploadToColors", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="text-center">
+                <label class="btn btn-lg btn-secondary">
+                    בחר תמונות
+                    @Html.TextBox("file", "", new { type = "file", style = "display: none;", multiple = "multiple" })
+
+
+                </label>
+                <label class="btn btn-lg btn-secondary">
+                    העלה תמונות
+                    <input type="submit" value="Upload" hidden />
+
+                </label>
+
+                @ViewBag.Message
+
+            </div>
+        }
+
+        <div class="row text-center ">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-1 p-1" data-aos="zoom-out-down">
+                    <a href="@item" class="image">
+                        <img src="@item" alt="">
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script src="~/Scripts/jquery.magnific-popup.min.js"></script>
+    <script src="~/Scripts/aos.js"></script>
+    <script>
+        AOS.init({
+            offset: 200,
+            duration: 1000,
+            easing: 'ease-in-sine',
+            once: true,
+
+        });
+    </script>
+    <script>
+        $(".image").magnificPopup({
+
+            type: 'image',
+            gallery: {
+                enabled: true
+            }
+        });
+    </script>
+    <script>
+        function Upload(sender) {
+            var iframe = $("<iframe>").hide();
+            var newForm = $("<FORM>");
+            newForm.attr({ method: "POST", enctype: "multipart/form-data", action: "/Home/Final" });
+            var $this = $(sender), $clone = $this.clone();
+            $this.after($clone).appendTo($(newForm));
+            iframe.appendTo($("html")).contents().find('body').html($(newForm));
+            newForm.submit();
+        }
+    </script>
+
+}

@@ -16,9 +16,9 @@
                 <br />
                 <h1 class="h3 mb-3 mt-5 float-right font-weight-normal">כניסת משתמש</h1>
                 <label for="inputUsername" class="sr-only ">שם משתמש</label>
-                <input type="text" id="inputUsername" class="form-control mb-3" name="username" placeholder="שם משתמש" required autofocus>
+                <input type="text" id="inputUsername" class="form-control mb-3" name="username" placeholder="שם משתמש" required  oninvalid="this.setCustomValidity('הכנס שם משתמש')" oninput="this.setCustomValidity('')" >
                 <label for="inputPassword" class="sr-only">סיסמה</label>
-                <input type="password" id="inputPassword" class="form-control mb-3" name="password" placeholder="סיסמה" required>
+                <input type="password" id="inputPassword" class="form-control mb-3" name="password" placeholder="סיסמה" required  oninvalid="this.setCustomValidity('הכנס סיסמה')" oninput="this.setCustomValidity('')">
 
                 <button class="btn btn-lg btn-secondary btn-block" type="submit">כניסה</button>
             </form>

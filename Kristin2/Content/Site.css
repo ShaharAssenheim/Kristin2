@@ -19,6 +19,10 @@ height: 100%;
 overflow-x: hidden;
 }
 
+#myModalSave span {
+    color: #f498b8;
+}
+
 .blurb h2 {
 color: #ea1c2c;
 font-weight: 100;
@@ -275,4 +279,25 @@ section {
 	left: 50%;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: right;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgb(222,192,222);
+    min-width: 160px;
+    /*box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
+    z-index: 1;
 }

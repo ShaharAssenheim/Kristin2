@@ -48,6 +48,10 @@ namespace Kristin2.Controllers
                     {
                         Session["UserID"] = obj.ID.ToString();
                         Session["FirstName"] = obj.FirstName.ToString();
+                        if (obj.AdminCode == 19921992)
+                            Session["AdimCode"] = "Admin";
+                        else
+                            Session["AdimCode"] = "User";
                         return RedirectToAction("CustomersPage", "Customer");
                     }
                 }

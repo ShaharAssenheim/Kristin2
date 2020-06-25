@@ -28,24 +28,24 @@
 
 
                 <label for="inputUsername" class="sr-only">שם משתמש</label>
-                <input type="text" id="inputUsername" class="form-control" name="UserName" placeholder="שם משתמש" required autofocus>
+                <input type="text" id="inputUsername" class="form-control" name="UserName" placeholder="שם משתמש" required  oninvalid="this.setCustomValidity('הכנס שם משתמש')" oninput="this.setCustomValidity('')">
 
                 <label for="inputPassword" class="sr-only">סיסמה</label>
-                <input type="password" id="inputPassword" class="form-control" name="Password" placeholder="סיסמה" required>
+                <input type="password" id="inputPassword" class="form-control" name="Password" placeholder="סיסמה" required  oninvalid="this.setCustomValidity('הכנס סיסמה')" oninput="this.setCustomValidity('')">
 
                 <label for="inputFirstname" class="sr-only">שם פרטי</label>
-                <input type="text" id="inputFirstname" class="form-control" name="FirstName" placeholder="שם פרטי" required>
+                <input type="text" id="inputFirstname" class="form-control" name="FirstName" placeholder="שם פרטי" required  oninvalid="this.setCustomValidity('הכנס שם פרטי')" oninput="this.setCustomValidity('')">
 
                 <label for="inputLastname" class="sr-only">שם משפחה</label>
-                <input id="inputLastname" type="text" class="form-control" name="LastName" placeholder="שם משפחה" required>
+                <input id="inputLastname" type="text" class="form-control" name="LastName" placeholder="שם משפחה" required  oninvalid="this.setCustomValidity('הכנס שם משפחה')" oninput="this.setCustomValidity('')">
 
                 <label for="inputEmail" class="sr-only">טלפון</label>
-                <input id="inputPhone" type="text" class="form-control" name="Phone" placeholder="טלפון" required>
+                <input id="inputPhone" type="text" class="form-control" name="Phone" placeholder="טלפון" required  oninvalid="this.setCustomValidity('הכנס מספר טלפון')" oninput="this.setCustomValidity('')">
 
 
 
                 <label for="inputEmail" class="sr-only">אימייל</label>
-                <input id="inputEmail" type="text" class="form-control" name="Email" placeholder="אימייל" required>
+                <input id="inputEmail" type="text" class="form-control" name="Email" placeholder="אימייל" >
 
                 <label for="datepicker" class="sr-only">טיפול אחרון</label>
                 <input id="datepicker" class="date-picker form-control" type="text" name="Lasttime" placeholder="טיפול אחרון" />

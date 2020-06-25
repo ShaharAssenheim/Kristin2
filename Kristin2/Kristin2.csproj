@@ -200,6 +200,7 @@
     <Content Include="Content\imgs\kris_logo.jpg" />
     <Content Include="Content\imgs\kris_logo_icon.ico" />
     <Content Include="Content\imgs\loader.gif" />
+    <Content Include="Content\imgs\logo.png" />
     <Content Include="Content\imgs\meni.jpg" />
     <Content Include="Content\imgs\nail.jpg" />
     <Content Include="Content\magnific-popup.css" />
@@ -433,6 +434,7 @@
     <Content Include="Views\Calander\Calander.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Customer\CustomersPage.cshtml" />
+    <Content Include="Views\Home\Colors.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

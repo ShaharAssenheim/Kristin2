@@ -31,13 +31,14 @@
 
             <tr>
 
-                <th>שם משתמש</th>
-                <th>סיסמה</th>
+
                 <th>שם פרטי</th>
                 <th>שם משפחה</th>
+                <th>טלפון</th>
                 <th>אימייל</th>
-                <th>טיפול אחרון</th>
-                <th>קוד אדמין</th>
+                <th>שם משתמש</th>
+                <th>סיסמה</th>
+                <th>קוד משתמש</th>
                 <th></th>
             </tr>
 
@@ -45,33 +46,33 @@
             @foreach (var item in Model)
             {
 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Password)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastTime)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AdminCode)
-                    </td>
-                    <td>
-                        @Html.ActionLink("ערוך", "CustomersPage", new { id = item.ID }, new { @class = "btn btn-sm btn-secondary" }) |
-                        @Html.ActionLink("מחק", "Delete", new { id = item.ID }, new { @class = "btn btn-sm btn-secondary" })
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdminCode)
+                </td>
+                <td>
+                    @Html.ActionLink("ערוך", "CustomersPage", new { id = item.ID }, new { @class = "btn btn-sm btn-secondary" }) |
+                    @Html.ActionLink("מחק", "Delete", new { id = item.ID }, new { @class = "btn btn-sm btn-secondary" })
+                </td>
+            </tr>
 
             }
 
